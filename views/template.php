@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistema de Inventario</title>
+  <title>SAC - Administración de Clínica</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="views/plugins/fontawesome-free/css/all.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="views/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="views/dist/css/adminlte.css">
 
   <!-- jQuery -->
   <script src="views/plugins/jquery/jquery.min.js"></script>
@@ -18,9 +18,6 @@
   <script src="views/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
   <script src="views/dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="views/dist/js/demo.js"></script>
-
 
 </head>
 
@@ -30,10 +27,10 @@
   <?php
 
     //header section
-    include "views/moduls/header.php";
+    include "moduls/header.php";
 
     //menu section
-    include "views/moduls/menu.php";
+    include "moduls/menu.php";
 
     //content section - the "route" variable comes from .htaccess file, code section "index.php?route=$1"
     //friendly link route from the menu sidebar nav-item, dont need to write php extension
@@ -53,7 +50,7 @@
     };
 
     //footer section
-    include "views/moduls/footer.php";
+    include "moduls/footer.php";
 
   ?>
 

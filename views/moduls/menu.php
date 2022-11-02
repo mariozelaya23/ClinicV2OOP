@@ -3,7 +3,7 @@
   <!-- Brand Logo -->
   <a href="dashboard" class="brand-link">
     <img src="views/img/template/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">Inventario</span>
+    <span class="brand-text font-weight-light">SAC</span>
   </a>
 
   <!-- Sidebar -->
@@ -51,7 +51,7 @@
             </p>
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="categorias" class="nav-link">
             <i class="nav-icon fa fa-th"></i>
             <p>
@@ -100,6 +100,12 @@
               <a href="reportes" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Reporte de Ventas</p>
+              </a>
+            </li> -->
+            <li class="nav-item">
+              <a href="salir" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Salir</p>
               </a>
             </li>
           </ul>
