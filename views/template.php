@@ -40,13 +40,7 @@
     if(isset($_GET['route']))
     {
       if($_GET['route'] == 'dashboard' ||
-         $_GET['route'] == 'usuarios' ||
-         $_GET['route'] == 'categorias' ||
-         $_GET['route'] == 'productos' ||
-         $_GET['route'] == 'clientes' ||
-         $_GET['route'] == 'ventas' ||
-         $_GET['route'] == 'crear-venta' ||
-         $_GET['route'] == 'reportes') 
+         $_GET['route'] == 'usuarios') 
       {
         include 'moduls/'.$_GET['route'].'.php';
       }else
