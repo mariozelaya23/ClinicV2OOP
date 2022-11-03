@@ -21,43 +21,57 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini"> <!-- TEMP -->
-<!-- Site wrapper -->
-<div class="wrapper"> <!-- TEMP -->
   <?php
-
-    //header section
-    include "moduls/header.php";
-
-    //menu section
-    include "moduls/menu.php";
-
-    //content section - the "route" variable comes from .htaccess file, code section "index.php?route=$1"
-    //friendly link route from the menu sidebar nav-item, dont need to write php extension
-    if(isset($_GET['route']))
+    
+    //if iniciarSesion variable exists(we do this with isset) or iniciarSesion is equal to ok
+    if(isset($_SESSION["iniciarSesion"]) && $_SESSION["iniciarSesion"] == "ok")
     {
-      if($_GET['route'] == 'dashboard' ||
-         $_GET['route'] == 'usuarios') 
-      {
-        include 'moduls/'.$_GET['route'].'.php';
-      }else
-      {
-        include 'moduls/404.php'; //this will redirect the user to an error page if you type a page that is no included on moduls
-      }
+      echo '<body class="hold-transition sidebar-mini">';
+
+        //div wrapper
+        echo '<div class="wrapper">';
+
+          //header section
+          include "moduls/header.php";
+
+          //menu section
+          include "moduls/menu.php";
+
+          //content section - the "route" variable comes from .htaccess file, code section "index.php?route=$1"
+          //friendly link route from the menu sidebar nav-item, dont need to write php extension
+          if(isset($_GET['route']))
+          {
+            if($_GET['route'] == 'dashboard' ||
+              $_GET['route'] == 'usuarios') 
+            {
+              include 'moduls/'.$_GET['route'].'.php';
+            }else
+            {
+              include 'moduls/404.php'; //this will redirect the user to an error page if you type a page that is no included on moduls
+            }
+          }else
+          {
+            include 'moduls/dashboard.php';  //here you will be redirect to the dashboard if you type http://localhost/clinicv2oop/
+          };
+
+          //footer section
+          include "moduls/footer.php";
+
+        //end /div wrapper
+        echo '</div>';
+
+      echo '</body>';
+
     }else
     {
-      include 'moduls/dashboard.php';  //here you will be redirect to the dashboard if you type http://localhost/inventario/
-    };
+      //I added another body tag, in this body I added the login-page class,the CSS properties of this class is different compared with the wrapper which is the dashboard  
+      echo '<body class="hold-transition sidebar-mini login-page">';
 
-    //footer section
-    include "moduls/footer.php";
+        include 'moduls/login.php';
+
+      echo '</body>';
+    }
 
   ?>
 
-  
-
-</div>
-<!-- ./wrapper --> 
-
-</body> <!-- TEMP -->
 </html>
