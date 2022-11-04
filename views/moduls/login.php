@@ -31,6 +31,16 @@
           </div>
           <!-- /.col -->
         </div>
+        
+        <!-- creating object $login, this object will instantiate the a controller object ControladorUsuarios() (which is a class) -->
+        <!-- with that now we have access to the class methods, with the simbol -> I'm triggering the method ctrIngresoUsuario() -->
+        <?php
+          
+          $login = new ControladorUsuarios();
+          $login -> ctrIngresoUsuario();
+
+        ?>
+
       </form>
 
     </div>

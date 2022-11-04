@@ -1,3 +1,8 @@
+<?php
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +47,8 @@
           if(isset($_GET['route']))
           {
             if($_GET['route'] == 'dashboard' ||
-              $_GET['route'] == 'usuarios') 
+              $_GET['route'] == 'usuarios' ||
+              $_GET['route'] == 'salir')
             {
               include 'moduls/'.$_GET['route'].'.php';
             }else
