@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="dashboard">Home</a></li>
             <li class="breadcrumb-item active">Administrar Usuarios</li>
           </ol>
         </div>
@@ -23,29 +23,165 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Title</h3>
 
-        <div class="card-tools">
-          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">Agregar Usuario</button>
+
       </div>
+
       <div class="card-body">
-        Start creating your amazing application!
+        
+        <table id="dtUsuarios" class="table table-bordered table-striped table1">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Usuario</th>
+              <th>Foto</th>
+              <th>Perfil</th>
+              <th>Estado</th>
+              <th>Ultimo login</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Mario Zelaya</td>
+              <td>marioz</td>
+              <td><img src="views/img/users/default/user.png" class="img-thumbnail" width="40px"></td>
+              <td>Administrador</td>
+              <td><button class="btn btn-success btn-xs">Activado</button></td>
+              <td></td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
+                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
       <!-- /.card-body -->
-      <div class="card-footer">
-        Footer
-      </div>
-      <!-- /.card-footer-->
+    
     </div>
     <!-- /.card -->
 
   </section>
   <!-- /.content -->
+
 </div>
 <!-- /.content-wrapper --> <!-- CONTENT -->
+
+
+<!-- MODAL AGREGAR USUARIO -->
+<div class="modal fade" id="modalAgregarUsuario">
+
+  <div class="modal-dialog modal-lg">
+
+    <div class="modal-content">
+
+      <form method="POST" enctype="multipart/form-data">
+
+        <div class="modal-header" style="background: #343a40; color:white">
+
+          <h4 class="modal-title">Agregar Usuario</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+
+        <div class="modal-body">
+
+          <div class="card-body">
+
+            <!-- Nombre -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                
+                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar Nombre" required>
+
+              </div>
+
+            </div>
+
+            <!-- Usuario -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                
+                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar Usuario" required>
+
+              </div>
+
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                
+                <input type="password" class="form-control input-lg" name="nuevoPass" placeholder="Ingresar Contrasena" required>
+
+              </div>
+
+            </div>
+
+            <!-- Perfil -->
+            <div class="form-group">
+
+              <div class="input-group">
+
+                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                
+                <select class="form-control input-lg" name="nuevoPerfil">
+
+                  <option value="">Seleccionar Perfil</option>
+                  <option value="Administrador">Administrador</option>
+                  <option value="Usuario">Usuario</option>
+
+                </select>
+
+              </div>
+
+            </div>
+
+            <!-- Foto -->
+            <div class="form-group">
+
+              <div class="panel">SUBIR FOTO</div>
+              <input type="file" id="nuevaFoto" name="nuevaFoto">
+              <p class="help-block">Peso maximo de la foto 25MB</p>
+              <img src="views/img/users/default/user.png" class="img-thumbnail" width="100px">
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="modal-footer justify-content-between">
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+          <button type="submit" class="btn btn-primary">Guardar Usuario</button>
+
+        </div>
+
+      </form>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
