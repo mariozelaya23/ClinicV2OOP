@@ -40,6 +40,8 @@ session_start();
   <script src="views/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="views/plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="views/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <!-- SweetAlert 2 -->
+  <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script>
 
 </head>
 

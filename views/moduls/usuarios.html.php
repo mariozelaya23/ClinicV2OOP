@@ -143,12 +143,11 @@
 
                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
                 
-                <select class="form-control input-lg" name="nuevoPerfil" required>
+                <select class="form-control input-lg" name="nuevoPerfil">
 
                   <option value="">Seleccionar Perfil</option>
                   <option value="Administrador">Administrador</option>
-                  <option value="Medico">Médico</option>
-                  <option value="Asistente">Asistente</option>
+                  <option value="Usuario">Usuario</option>
 
                 </select>
 
@@ -176,17 +175,6 @@
           <button type="submit" class="btn btn-primary">Guardar Usuario</button>
 
         </div>
-
-        <!-- adding PHP object that will helps us to save the user -->
-        <?php
-          
-          //this variable will instantiate the class controladorUsuarios
-          $crearUsuario = new ControladorUsuarios();
-
-          //from that class we are going execute the method that's going to save the users
-          $crearUsuario -> ctrCrearUsuario();
-
-        ?>
 
       </form>
 
