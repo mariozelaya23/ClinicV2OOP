@@ -100,5 +100,6 @@ session_start();
   ?>
 
 <script src="views/js/template.js"></script>
+<script src="views/js/usuarios.js"></script>
 
 </html>

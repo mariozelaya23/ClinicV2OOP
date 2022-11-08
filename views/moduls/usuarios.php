@@ -160,9 +160,9 @@
             <div class="form-group">
 
               <div class="panel">SUBIR FOTO</div>
-              <input type="file" id="nuevaFoto" name="nuevaFoto">
-              <p class="help-block">Peso maximo de la foto 25MB</p>
-              <img src="views/img/users/default/user.png" class="img-thumbnail" width="100px">
+              <input type="file" class="nuevaFoto" name="nuevaFoto">
+              <p class="help-block">Peso maximo de la foto 5MB</p>
+              <img src="views/img/users/default/user.png" class="img-thumbnail previsualizar" width="100px">
 
             </div>
 
