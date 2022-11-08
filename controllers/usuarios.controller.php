@@ -12,6 +12,9 @@
             {
                 if(preg_match('/^[a-zA-Z0-9-]+$/', $_POST['ingUsuario']) && preg_match('/^[a-zA-Z0-9-]+$/', $_POST['ingPassword']))
                 {
+                    //encrypting post variable $_POST['ingPassword']
+                    $encriptar_pass = crypt($_POST["ingPassword"], '$2a$07$usesomesillystringforsalt$');
+
                     //we will send to the user table
                     $tabla = 'tbl_usuario';
 
@@ -30,7 +33,7 @@
                     //because the response is an array we put this if
                     if(is_array($respuesta))
                     {
-                        if($respuesta["usuario"] == $_POST['ingUsuario'] && $respuesta["password"] == $_POST["ingPassword"])
+                        if($respuesta["usuario"] == $_POST['ingUsuario'] && $respuesta["password"] == $encriptar_pass)
                         {
                             //YES we can access
                             // echo '<br><div class="alert alert-success">Bienvenido al sistema</div>';
@@ -138,10 +141,13 @@
                     //sending user table
                     $tabla = "tbl_usuario";
 
+                    //before sending the password to the model we need to encrypt the password
+                    $encriptar_pass = crypt($_POST["nuevoPass"], '$2a$07$usesomesillystringforsalt$');
+
                     //sending the array
                     $datos = array("nombre" => $_POST["nuevoNombre"], 
                                     "usuario" => $_POST["nuevoUsuario"], 
-                                    "password" => $_POST["nuevoPass"],
+                                    "password" => $encriptar_pass,
                                     "role" => $_POST["nuevoPerfil"],
                                     "foto" => $ruta);
                     
