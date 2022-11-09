@@ -39,6 +39,13 @@
                             // echo '<br><div class="alert alert-success">Bienvenido al sistema</div>';
                             //validating id session is equal to ok, this is located on the template.php
                             $_SESSION["iniciarSesion"] = "ok";
+                            
+                            //bringing other variables session for other pages
+                            $_SESSION["usuarioid"] = $respuesta["usuarioid"];
+                            $_SESSION["nombre"] = $respuesta["nombre"];
+                            $_SESSION["usuario"] = $respuesta["usuario"];
+                            $_SESSION["role"] = $respuesta["role"];
+                            $_SESSION["foto"] = $respuesta["foto"];
 
                             //redirecting with javascript
                             echo '<script>

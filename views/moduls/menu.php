@@ -11,10 +11,20 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="views/img/users/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <?php
+          //if there is an image on the database 
+          if($_SESSION["foto"] != "")
+          {
+            echo '<img src="'.$_SESSION["foto"].'" class="img-circle elevation-2" alt="User Image">';
+          }else
+          {
+            //showing default image
+            echo '<img src="views/img/users/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">';
+          }
+        ?>
       </div>
-      <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+      <div class="info"><!-- login and logout if this not work -->
+        <a href="#" class="d-block"><?php echo $_SESSION["nombre"];?></a>
       </div>
     </div>
 
