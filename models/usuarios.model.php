@@ -4,8 +4,8 @@ require_once 'conexion.php';
 
 class ModeloUsuarios
 {
-    //showing the users, use static to avoid issues with the php.ini
-    static public function mdlMostrarUsuarios($tabla, $item, $valor)
+    //showing the specific user, use static to avoid issues with the php.ini
+    static public function mdlMostrarUsuario($tabla, $item, $valor)
     {
         //instantiating class Conexion, SELECTING just one item(which is the user) is equal to a parameter :$item (parametro a ser enlazado)
         $stmt = Conexion::conectar() -> prepare("SELECT * FROM $tabla WHERE $item = :$item");
@@ -19,6 +19,24 @@ class ModeloUsuarios
 
         //returning just one row of the db table
         return $stmt -> fetch();
+
+        //Closing connection
+        $stmt -> close();
+
+        $stmt = null;
+    }
+
+    //showing all users
+    static public function mdlMostrarUsuarios($tabla)
+    {
+        //instantiating class Conexion, SELECTING all the users
+        $stmt = Conexion::conectar() -> prepare("SELECT * FROM $tabla");
+
+        //executing the SQL object
+        $stmt -> execute();
+
+        //returning just one row of the db table
+        return $stmt -> fetchAll();
 
         //Closing connection
         $stmt -> close();

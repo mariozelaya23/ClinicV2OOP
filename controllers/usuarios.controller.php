@@ -24,7 +24,7 @@
                     $valor = $_POST['ingUsuario'];
 
                     //and we are going to ask an response from the model Class::method, sending the 3 parameters above
-                    $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla, $item, $valor);
+                    $respuesta = ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
 
                     //checking with var_dump the response from the model (this return an array)
                     // var_dump($respuesta["usuario"]);
@@ -203,6 +203,19 @@
 
 
             }
+
+        }
+
+        //Mostrar todos usuarios
+        static public function ctrMostrarUsuarios()
+        {
+            //passing table
+            $tabla = "tbl_usuario";
+
+            //asking for an answer to mdlMostrarUsuarios
+            $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla);
+
+            return $respuesta;
 
         }
 

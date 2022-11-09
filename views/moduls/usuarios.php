@@ -44,21 +44,56 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mario Zelaya</td>
-              <td>marioz</td>
-              <td><img src="views/img/users/default/user.png" class="img-thumbnail" width="40px"></td>
-              <td>Administrador</td>
-              <td><button class="btn btn-success btn-xs">Activado</button></td>
-              <td></td>
-              <td>
-                <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                </div>
-              </td>
-            </tr>
+
+            <?php
+              
+              //creating object to bring all the user information
+              $usuarios = ControladorUsuarios::ctrMostrarUsuarios();
+
+              //returns an array, we are ok!!
+              //var_dump($usuarios);
+
+              //using for each to show the array
+              foreach($usuarios as $key => $value)
+              {
+                //testing array values
+                //var_dump($value["nombre"]);
+
+                echo '
+                <tr>
+                  <td>'.$value["usuarioid"].'</td>
+                  <td>'.$value["nombre"].'</td>
+                  <td>'.$value["usuario"].'</td>';//closing first echo
+                  
+                  //validating if the image is empty
+                  if($value["foto"] != "")
+                  {
+                    //showing photo from the database
+                    echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" width="40px"></td>';
+
+                  }else
+                  {
+                    //showing the default image
+                    echo '<td><img src="views/img/users/default/user.png" class="img-thumbnail" width="40px"></td>';
+
+                  }
+                  
+                  echo'
+                  <td>'.$value["role"].'</td>
+                  <td><button class="btn btn-success btn-xs">Activado</button></td>
+                  <td>'.$value["ultimo_login"].'</td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-warning"><i class="fa fa-pen"></i></button>
+                      <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                    </div>
+                  </td>
+                </tr>
+                ';
+              }
+            
+            ?>
+
           </tbody>
         </table>
 
