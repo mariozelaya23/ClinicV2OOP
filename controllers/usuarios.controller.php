@@ -219,4 +219,17 @@
 
         }
 
+        //Mostrar Usuario
+        static public function ctrMostrarUsuario($item, $valor)
+        {
+            //passing table
+            $tabla = "tbl_usuario";
+
+            //asking for an answer to mdlMostrarUsuarios
+            $respuesta = ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
+
+            return $respuesta;
+
+        }
+
     }

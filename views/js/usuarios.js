@@ -53,3 +53,46 @@ $(".nuevaFoto").change(function(){
     }
 
 })
+
+
+//EDITAR USUARIO
+$(".btnEditarUsuario").click(function(){
+
+    //storing in a variable what btnEditarUsuario brings in the attribute idUsuario
+    var idUsuario = $(this).attr("idUsuario");
+    //testing with the javascript console if the user id it's been shown on the console
+    // console.log("idUsuario", idUsuario);
+
+    //preparing everything to use ajax to bring data from the database
+    //creating a new variable FormData, then appending the POST variable to the variable above
+    var datos = new FormData();
+    datos.append("idUsuario", idUsuario);
+
+    //ajax
+    $.ajax({
+
+        //ajax file route
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        //on respuesta we bring what comes from the database
+        success: function(respuesta)
+        {
+            //testing what respuesta brings
+            //console.log("respuesta", respuesta);
+
+            //printing the values from usuarios.ajax.php -> ajaxEditarUsuario() -> asked to -> ctrMostrarUsuario($item, $valor), from public function, this bring json values
+            $("#editarNombre").val(respuesta["nombre"]);
+            $("#editarUsuario").val(respuesta["usuario"]);
+            $("#editarPerfil").html(respuesta["role"]);
+
+
+        }
+
+    });
+
+})
