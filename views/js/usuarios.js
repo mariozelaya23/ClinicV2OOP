@@ -83,14 +83,27 @@ $(".btnEditarUsuario").click(function(){
         success: function(respuesta)
         {
             //testing what respuesta brings
-            //console.log("respuesta", respuesta);
+            // console.log("respuesta", respuesta);
 
             //printing the values from usuarios.ajax.php -> ajaxEditarUsuario() -> asked to -> ctrMostrarUsuario($item, $valor), from public function, this bring json values
             $("#editarNombre").val(respuesta["nombre"]);
             $("#editarUsuario").val(respuesta["usuario"]);
             $("#editarPerfil").html(respuesta["role"]);
 
+            //keeping the user picture in value just in case the user does not change the role when editing (hidden input)
+            $("#fotoActual").val(respuesta["fotoActual"]);
 
+            //keeping the role in value just in case the user does not change the role when editing
+            $("#editarPerfil").val(respuesta["role"]);
+
+            //keeping the password in value just in case the user does not change the role when editing (hidden input)
+            $("#passwordActual").val(respuesta["password"]);
+
+            //bringing the image
+			if(respuesta["foto"] != "")
+			{
+				$(".previsualizar").attr("src", respuesta["foto"]);
+			}
         }
 
     });

@@ -232,4 +232,194 @@
 
         }
 
+        //Editar Usuario
+        static public function ctrEditarUsuario()
+        {
+            //if comes a variable POST type (modal window form editar usuario) 
+            if(isset($_POST["editarNombre"]))
+            {
+
+                //I'm removed the validation for password, and username, due to username has a folder, and modifying the username will create trash folders, input username will be readonly
+                //If the customer does not change the password, the password will be empty, and it will create a conflict with the preg_match
+                if(preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"]))
+                {
+
+                    //if the image wont change, we need to bring the unit, this is the hidden input
+                    $ruta = $_POST["fotoActual"];
+
+                    //if the image will change
+                    if(isset($_FILES["editarFoto"]["tmp_name"]) && !empty($_FILES["editarFoto"]["tmp_name"]))
+                    {
+                        //creating a list to assing new properties to the image (resizing the image)
+                        list($ancho, $alto) = getimagesize($_FILES["editarFoto"]["tmp_name"]);
+
+                        // var_dump(getimagesize($_FILES["editarFoto"]["tmp_name"]));
+
+                        //new width and height
+                        $nuevoAncho = 500;
+                        $nuevoAlto = 500;
+
+                        //creating the new folder where the image will be store with the name of the user, route + variable post
+                        $folder = "views/img/users/".$_POST["editarUsuario"];
+
+                        //asking if the image exits
+                        //if the post variable is different to empty
+                        if(!empty($_POST["fotoActual"]))
+                        {
+                            //deleting the image (file)
+                            unlink($_POST["fotoActual"]);
+                        }else
+                        {
+                            //if the image is empty, we are going to create the folder
+                            //using javascript method to create a new folder adding the permissions
+                            mkdir($folder, 755);
+                            
+                        }
+
+
+                        //linking the image to the folder
+                        //base of the image type we apply diferent php functions
+                        if($_FILES["editarFoto"]["type"] == "image/jpeg")
+                        {
+                            //creating a random number 
+                            $random = mt_rand(100,999);
+                            
+                            //saving the image in the folder
+                            //the image name will be saved as a random numbers with the ext
+                            $ruta = $folder."/".$random.".jpg";
+
+                            //resizing the image, for this we need two variables, the source (old image) and the destination (new image)
+                            $origen = imagecreatefromjpeg($_FILES["editarFoto"]["tmp_name"]);
+
+                            $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+                            //resizing the image to 500x500
+                            imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+                            //saving the image on route
+                            imagejpeg($destino, $ruta);
+                        }
+
+                        //linking the image to the folder
+                        //base of the image type we apply diferent php functions
+                        if($_FILES["editarFoto"]["type"] == "image/png")
+                        {
+                            //creating a random number 
+                            $random = mt_rand(100,999);
+                            
+                            //saving the image in the folder
+                            //the image name will be saved as a random numbers with the ext
+                            $ruta = $folder."/".$random.".png";
+
+                            //resizing the image, for this we need two variables, the source (old image) and the destination (new image)
+                            $origen = imagecreatefrompng($_FILES["editarFoto"]["tmp_name"]);
+
+                            $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+                            //resizing the image to 500x500
+                            imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+                            //saving the image on route
+                            imagepng($destino, $ruta);
+                        }
+
+                    }
+
+                    //if the variables post meets the requirements above to save the user
+                    //sending user table
+                    $tabla = "tbl_usuario";
+
+                    //if the password comes with data (not empty)
+                    if($_POST["editarPass"] != "")
+                    {
+                        //evaluating that password does not come with special characters
+                        if(preg_match('/^[a-zA-Z0-9-]+$/', $_POST['editarPass']))
+                        {
+
+                            //encryting the modified password
+                            $encriptar_pass = crypt($_POST["editarPass"], '$2a$07$usesomesillystringforsalt$');
+
+                        }else
+                        {
+
+                            echo 
+                            "<script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'La contrasena no puede ir vacia o con caracteres especiales!!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    closeOnConfirm: false
+                                }).then((result)=>{
+                                    if(result.value)
+                                    {
+                                        window.location = 'usuarios';
+                                    }
+                                });        
+                            </script>";
+
+                        }
+
+                    }else
+                    {
+
+                        //if the password comes empty
+                        $encriptar_pass = $_POST["passwordActual"];
+
+                    }
+
+                    //sending the data to the model
+                    $datos = array("nombre" => $_POST["editarNombre"], 
+                                    "usuario" => $_POST["editarUsuario"], 
+                                    "password" => $encriptar_pass,
+                                    "role" => $_POST["editarPerfil"],
+                                    "foto" => $ruta);
+
+                    //asking to the model an response
+                    $respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $datos);
+
+                    //if model reply ok, then we are going to show a success message that the user has been saved
+                    if($respuesta == "ok")
+                    {
+                        echo 
+                        "<script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'El usuario ha sido editado correctamente!!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                                closeOnConfirm: false
+                            }).then((result)=>{
+                                if(result.value)
+                                {
+                                    window.location = 'usuarios';
+                                }
+                            });        
+                        </script>";
+                    }
+
+                }else
+                {
+
+                    echo 
+                    "<script>
+                        Swal.fire({
+                            icon: 'Error',
+                            title: 'El nombre no puede ir vacio o llevar caracteres especiales!!',
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value)
+                            {
+                                window.location = 'usuarios';
+                            }
+                        });        
+                    </script>";
+
+                }
+
+            }
+        }
+
     }

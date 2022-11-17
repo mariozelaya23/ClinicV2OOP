@@ -275,7 +275,7 @@
 
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
                 
-                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" required>
+                <input type="text" class="form-control input-lg" id="editarUsuario" name="editarUsuario" value="" readonly>
 
               </div>
 
@@ -288,7 +288,10 @@
 
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                 
-                <input type="password" class="form-control input-lg" name="editarPass" placeholder="Escriba la nueva contrasena" required>
+                <input type="password" class="form-control input-lg" name="editarPass" placeholder="Escriba la nueva contrasena">
+
+                <!-- this input contains the current password it will hidden -->
+                <input type="hidden" id="passwordActual" name="passwordActual">
 
               </div>
 
@@ -322,6 +325,9 @@
               <p class="help-block">Peso maximo de la foto 5MB</p>
               <img src="views/img/users/default/user.png" class="img-thumbnail previsualizar" width="100px">
 
+              <!-- Sending the current image -->
+              <input type="hidden" id="fotoActual" name="fotoActual">
+
             </div>
 
           </div>
@@ -336,15 +342,15 @@
         </div>
 
         <!-- adding PHP object that will helps us to save the user -->
-        <!-- <?php
+        <?php
           
           //this variable will instantiate the class controladorUsuarios
-          $crearUsuario = new ControladorUsuarios();
+          $editarUsuario = new ControladorUsuarios();
 
           //from that class we are going execute the method that's going to save the users
-          $crearUsuario -> ctrCrearUsuario();
+          $editarUsuario -> ctrEditarUsuario();
 
-        ?> -->
+        ?>
 
       </form>
 

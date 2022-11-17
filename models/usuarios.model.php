@@ -70,4 +70,32 @@ class ModeloUsuarios
 
         $stmt = null;
     }
+
+    //Editar usuario
+    static public function mdlEditarUsuario($tabla, $datos)
+    {
+
+        //: are paremeters
+        $stmt = Conexion::conectar() -> prepare("UPDATE $tabla SET nombre = :nombre, password = :password, role = :role, foto = :foto WHERE usuario = :usuario");
+
+        $stmt -> bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
+        $stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
+        $stmt -> bindParam(":role", $datos["role"], PDO::PARAM_STR);
+        $stmt -> bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
+        $stmt -> bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
+
+        if($stmt->execute())
+        {
+            return "ok";
+        }else
+        {
+            return "error";
+        }
+
+        //Closing connection
+        $stmt -> close();
+
+        $stmt = null;
+
+    }
 }
