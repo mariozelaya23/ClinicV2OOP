@@ -98,4 +98,30 @@ class ModeloUsuarios
         $stmt = null;
 
     }
+
+    // Activate or deactivate user
+    // this information comes directly from ajax NOT through the controller
+    static public function mdlActualizarUsuario($tabla, $estado, $valor1, $usuarioid, $valor2)
+    {
+
+        $stmt = Conexion::conectar() -> prepare("UPDATE $tabla SET $estado = :$valor1 WHERE $usuarioid = :$valor2");
+
+        //$item1 = $valor1 and $item2 = $valor2
+        $stmt -> bindParam(":".$valor1, $valor1, PDO::PARAM_STR);
+        $stmt -> bindParam(":".$valor2, $valor2, PDO::PARAM_STR);
+
+        if($stmt->execute())
+        {
+            return "ok";
+        }else
+        {
+            return "error";
+        }
+
+        //Closing connection
+        $stmt -> close();
+
+        $stmt = null;
+
+    }
 }

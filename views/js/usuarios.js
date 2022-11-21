@@ -91,7 +91,7 @@ $(".btnEditarUsuario").click(function(){
             $("#editarPerfil").html(respuesta["role"]);
 
             //keeping the user picture in value just in case the user does not change the role when editing (hidden input)
-            $("#fotoActual").val(respuesta["fotoActual"]);
+            $("#fotoActual").val(respuesta["foto"]);
 
             //keeping the role in value just in case the user does not change the role when editing
             $("#editarPerfil").val(respuesta["role"]);
@@ -107,5 +107,58 @@ $(".btnEditarUsuario").click(function(){
         }
 
     });
+
+})
+
+
+//ACTIVAR USUARIO
+$(".table1").on("click", ".btnActivar", function(){
+
+    //getting idUsuario from usuarios.php, activate or deactivate button on user table
+    var idUsuario = $(this).attr("idUsuario");
+
+    //getting estadoUsuario from usuarios.php, activate or deactivate button on user table
+    var estadoUsuario = $(this).attr("estadoUsuario");
+
+    //USING AJAX TO MAKE THE CHANGE IN THE DB
+    var datos = new FormData();
+    datos.append("activarId", idUsuario);
+    datos.append("activarEstado", estadoUsuario);
+    
+    // console.log("idUsuario", idUsuario);
+    // console.log("estadoUsuario", estadoUsuario);
+
+    $.ajax({
+
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta)
+        {
+            //this data dont need to come with information, it's just to pass the POST parameters above
+        }
+
+    })
+
+    //changing button color
+    if(estadoUsuario == 0)
+    {
+        $(this).removeClass("btn-success");
+        $(this).addClass("btn-danger");
+        $(this).html("Desactivado");
+        //changing the state to 1
+        $(this).attr("estadoUsuario", 1);
+    }else
+    {
+        $(this).addClass("btn-success");
+        $(this).removeClass("btn-danger");
+        $(this).html("Activado");
+        //changing the state to 1
+        $(this).attr("estadoUsuario", 0);
+    }
+
 
 })

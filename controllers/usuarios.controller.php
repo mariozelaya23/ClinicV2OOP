@@ -35,22 +35,31 @@
                     {
                         if($respuesta["usuario"] == $_POST['ingUsuario'] && $respuesta["password"] == $encriptar_pass)
                         {
-                            //YES we can access
-                            // echo '<br><div class="alert alert-success">Bienvenido al sistema</div>';
-                            //validating id session is equal to ok, this is located on the template.php
-                            $_SESSION["iniciarSesion"] = "ok";
-                            
-                            //bringing other variables session for other pages
-                            $_SESSION["usuarioid"] = $respuesta["usuarioid"];
-                            $_SESSION["nombre"] = $respuesta["nombre"];
-                            $_SESSION["usuario"] = $respuesta["usuario"];
-                            $_SESSION["role"] = $respuesta["role"];
-                            $_SESSION["foto"] = $respuesta["foto"];
 
-                            //redirecting with javascript
-                            echo '<script>
-                                window.location = "dashboard";
-                            </script>';
+                            //ADDING THIS CODE LATER, validating if the user is active or not, so moving all the session variables inside this if
+                            if($respuesta["estado"] == 1)
+                            {
+                                //YES we can access
+                                // echo '<br><div class="alert alert-success">Bienvenido al sistema</div>';
+                                //validating id session is equal to ok, this is located on the template.php
+                                $_SESSION["iniciarSesion"] = "ok";
+                                
+                                //bringing other variables session for other pages
+                                $_SESSION["usuarioid"] = $respuesta["usuarioid"];
+                                $_SESSION["nombre"] = $respuesta["nombre"];
+                                $_SESSION["usuario"] = $respuesta["usuario"];
+                                $_SESSION["role"] = $respuesta["role"];
+                                $_SESSION["foto"] = $respuesta["foto"];
+
+                                //redirecting with javascript
+                                echo '<script>
+                                    window.location = "dashboard";
+                                </script>';
+                            }else
+                            {
+                                echo '<br><div class="alert alert-danger">El usuario no esta activo</div>';
+                            }
+
                         }else
                         {
                             echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
@@ -236,7 +245,7 @@
         static public function ctrEditarUsuario()
         {
             //if comes a variable POST type (modal window form editar usuario) 
-            if(isset($_POST["editarNombre"]))
+            if(isset($_POST["editarUsuario"]))
             {
 
                 //I'm removed the validation for password, and username, due to username has a folder, and modifying the username will create trash folders, input username will be readonly

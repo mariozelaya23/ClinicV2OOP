@@ -79,8 +79,23 @@
                   }
                   
                   echo'
-                  <td>'.$value["role"].'</td>
-                  <td><button class="btn btn-success btn-xs">Activado</button></td>
+                  <td>'.$value["role"].'</td>';
+                  
+                  if($value["estado"] != 0)
+                  {
+                    //the class btnActivar will be use in usuarios.js
+                    //with the attr idUsuario I'm getting the user id, this value will be use in usuarios.js
+                    //with the attr estadoUsuario I'm getting the user state, 0 means deactive
+                    echo '<td><button class="btn btn-success btn-xs btnActivar" idUsuario="'.$value["usuarioid"].'" estadoUsuario="0">Activado</button></td>';
+                  }else
+                  {
+                    //the class btnActivar will be use in usuarios.js
+                    //with the attr idUsuario I'm getting the user id, this value will be use in usuarios.js
+                    //with the attr estadoUsuario I'm getting the user state, 1 means active
+                    echo '<td><button class="btn btn-danger btn-xs btnActivar" idUsuario="'.$value["usuarioid"].'" estadoUsuario="1">Desactivado</button></td>';
+                  }
+                  
+                  echo'
                   <td>'.$value["ultimo_login"].'</td>
                   <td>
                     <div class="btn-group">

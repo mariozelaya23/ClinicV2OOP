@@ -24,9 +24,37 @@ class AjaxUsuarios
         echo json_encode($respuesta);
     }
 
+
+
+    //activating or deactivating users
+    //this are the 2 variables that comes from usuarios.js -> $(".btnActivar").click(function()
+    public $activarId;
+    public $activarEstado;
+
+    public function ajaxActivarUsuario()
+    {
+
+        $tabla = "tbl_usuario";
+
+        $estado = "estado";
+
+        //if state is 0 it will change to 1 and viceversa
+        $valor1 = $this->activarEstado;
+
+        $usuarioid = "usuarioid";
+
+        $valor2 = $this->activarId;
+
+        //asking a response directly to the model, without using the controller
+        $repuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $estado, $valor1, $usuarioid, $valor2);
+        
+    }
+
 }
 
-//editar usuario
+/*** OBJECTS ***/
+
+//edit user
 
 if(isset($_POST["idUsuario"]))
 {
@@ -38,6 +66,22 @@ if(isset($_POST["idUsuario"]))
 
     //the function ajaxEditarUsuario will never be execure unless it comes a post variable
     $editar -> ajaxEditarUsuario();
+
+}
+
+
+//activating user
+if(isset($_POST["activarEstado"]))
+{
+    //triggering AjaxUsuarios object
+    $activarEstado = new AjaxUsuarios();
+    $activarEstado -> activarEstado = $_POST["activarEstado"];
+    $activarEstado -> activarId = $_POST["activarId"];
+
+    //activating the method ajaxActivarUsuario()
+    $activarEstado -> ajaxActivarUsuario();
+
+
 
 }
 
