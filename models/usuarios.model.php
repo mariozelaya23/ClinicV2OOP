@@ -124,4 +124,31 @@ class ModeloUsuarios
         $stmt = null;
 
     }
+
+
+    // Updating last login date and time
+    static public function mdlActualizarUltLogin($tabla, $ultimo_login, $valor1, $usuarioid, $valor2)
+    {
+
+        $stmt = Conexion::conectar() -> prepare("UPDATE $tabla SET $ultimo_login = :$ultimo_login WHERE $usuarioid = :$usuarioid");
+
+        //$item1 = $valor1 and $item2 = $valor2
+        $stmt -> bindParam(":".$ultimo_login, $valor1, PDO::PARAM_STR);
+        $stmt -> bindParam(":".$usuarioid, $valor2, PDO::PARAM_STR);
+
+        if($stmt->execute())
+        {
+            return "ok";
+        }else
+        {
+            return "error";
+        }
+
+        //Closing connection
+        $stmt -> close();
+
+        $stmt = null;
+
+    }
+
 }

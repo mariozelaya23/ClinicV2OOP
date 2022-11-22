@@ -51,10 +51,39 @@
                                 $_SESSION["role"] = $respuesta["role"];
                                 $_SESSION["foto"] = $respuesta["foto"];
 
-                                //redirecting with javascript
-                                echo '<script>
-                                    window.location = "dashboard";
-                                </script>';
+
+                                //CODE ADDED LATER
+                                //last login registration
+                                date_default_timezone_set("America/Los_Angeles");
+
+                                //getting date
+                                $fecha = date('Y-m-d');
+
+                                //getting time
+                                $hora = date('H:i:s');
+
+                                //concatenating both
+                                $fechaActual = $fecha.' '.$hora;
+
+                                //this goes to the method mdlActualizarUltLogin($tabla, $ultimo_login, $valor1, $usuarioid, $valor2) on the model
+                                $tabla = 'tbl_usuario';
+
+                                $ultimo_login = "ultimo_login";
+                                $valor1 = $fechaActual;
+
+                                $usuarioid = "usuarioid";
+                                $valor2 = $respuesta["usuarioid"];
+
+                                //executing model method mdlActualizarUltLogin
+                                $ultimoLogin = ModeloUsuarios::mdlActualizarUltLogin($tabla, $ultimo_login, $valor1, $usuarioid, $valor2);
+
+                                //if $respuesta = ok, redirecting to dashboard
+                                if($ultimoLogin == "ok")
+                                {
+                                    echo '<script>
+                                        window.location = "dashboard";
+                                    </script>';
+                                }
                             }else
                             {
                                 echo '<br><div class="alert alert-danger">El usuario no esta activo</div>';
