@@ -6,6 +6,8 @@ require_once "../models/usuarios.model.php";
 class AjaxUsuarios
 {
 
+    /**** METHODS ****/
+
     //edit user
     
     //on a public variable we are getting idUsuario from usuarios.js
@@ -14,7 +16,7 @@ class AjaxUsuarios
     //this function will capture $idUsuario
     public function ajaxEditarUsuario(){
 
-        //table
+        //column
         $item = "usuarioid";
         //$_POST["idUsuario"]
         $valor = $this -> idUsuario;
@@ -50,6 +52,28 @@ class AjaxUsuarios
         
     }
 
+
+    //checking unique username 
+    public $validarUsuario;
+
+    public function ajaxValidarUsuario()
+    {
+
+        //column
+        $item = "usuario";
+
+        //$_POST["validarUsuario"]
+        $valor = $this -> validarUsuario;
+        
+        $respuesta = ControladorUsuarios::ctrMostrarUsuario($item, $valor);
+
+        echo json_encode($respuesta);
+        
+    }
+
+
+
+
 }
 
 /*** OBJECTS ***/
@@ -81,7 +105,20 @@ if(isset($_POST["activarEstado"]))
     //activating the method ajaxActivarUsuario()
     $activarEstado -> ajaxActivarUsuario();
 
+}
 
+
+//validating unique username
+if(isset($_POST["validarUsuario"]))
+{
+
+    $valUsuario = new AjaxUsuarios();
+
+    //linking the public variable with the post variable
+    $valUsuario -> validarUsuario = $_POST["validarUsuario"];
+
+    //executing the ajax method
+    $valUsuario -> ajaxValidarUsuario();
 
 }
 

@@ -162,3 +162,54 @@ $(".table1").on("click", ".btnActivar", function(){
 
 
 })
+
+//CHECKING UNIQUE USERNAME 
+$("#nuevoUsuario").change(function(){
+
+    //when input change remove alert messages
+    $(".alert").remove();
+
+    //catching the username that is typing through the value attr
+    var usuario = $(this).val();
+
+    //bring any info related to that user name find it on the database
+    var datos = new FormData();
+
+    //adding POST variable which is validarUsuario
+    datos.append("validarUsuario", usuario);
+
+    //ajax
+    $.ajax({
+
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(respuesta)
+        {
+            //testing with console if it brings the correct user info that we are sending
+            // console.log("respuesta", respuesta);
+
+            //if user exist (which is the info that respuesta brings)
+            if(respuesta)
+            {
+                //showing warning to the user
+                $("#nuevoUsuario").parent().after('<div class="alert alert-warning">Este usuario ya existe</div>');
+
+                //cleaning the input
+                $("#nuevoUsuario").val("");
+
+            }
+
+
+        }
+
+    })
+
+
+
+
+})
