@@ -209,7 +209,78 @@ $("#nuevoUsuario").change(function(){
 
     })
 
+})
 
 
+//DELETING USER
+$(document).on("click", ".btnEliminarUsuario", function(){
 
+    //catching the variables that comes from usuarios.php classes attributes
+    var idUsuario = $(this).attr("idUsuario");
+    var fotoUsuario = $(this).attr("fotoUsuario");
+    var usuario = $(this).attr("usuario");
+
+    console.log('idUsuario', idUsuario);
+    console.log('fotoUsuario', fotoUsuario);
+    console.log('usuario', usuario);
+    
+    //showing an alert that if you continue the user will be deleted
+    Swal.fire({
+        icon: 'warning',
+        title: '¿Está seguro de borrar el usuario?',
+        text: "¡Si no lo está puede cancelar la accíón!",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Si, borrar usuario!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+            // bring any info related to that user name find it on the database
+            var datos = new FormData();
+            datos.append("idUserElimnar", idUsuario);
+            //datos.append("fotoUsuario", fotoUsuario);
+            //datos.append("usuario", usuario);
+
+            //ajax
+            $.ajax({
+
+                url: "ajax/usuarios.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",  //dato sencillo
+                success: function(respuesta)
+                {
+                    //testing what respuesta bring, if yes is clicked, it bring in a json format the user information
+                    // console.log("respuesta", respuesta);
+                    // return;
+
+                    if(respuesta == 'ok')
+                    {
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'El usuario ha sido borrado correctamente',
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            closeOnConfirm: false
+                        }).then((result)=>{
+                            if(result.value)
+                            {
+                                window.location = 'usuarios';
+                            }
+                        });   
+
+                    }
+
+                }
+
+            })
+
+        }
+    })
 })

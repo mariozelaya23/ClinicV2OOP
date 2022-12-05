@@ -72,9 +72,28 @@ class AjaxUsuarios
     }
 
 
+    // deleting user
+    public $idUserElimnar;
+    // public $fotoUsuario;
+    // public $usuario;
+
+    public function ajaxEliminarUsuario()
+    {
+        // echo $this -> idUserElimnar;
+
+        $respuesta = ControladorUsuarios::ctrBorrarUsuario($this -> idUserElimnar);
+
+        echo $respuesta;
+
+        // echo json_encode($respuesta);
+
+    }
 
 
 }
+
+
+
 
 /*** OBJECTS ***/
 
@@ -123,3 +142,14 @@ if(isset($_POST["validarUsuario"]))
 }
 
 
+// deleting user
+if(isset($_POST["idUserElimnar"])) //preg_match para validar que solo vienen numeros
+{
+
+    $eliminarUsuario = new AjaxUsuarios();
+    $eliminarUsuario -> idUserElimnar = $_POST["idUserElimnar"];
+    // $eleminarUsuario -> fotoUsuario = $_POST["fotoUsuario"];
+    // $eleminarUsuario -> usuario = $_POST["usuario"];
+    $eliminarUsuario -> ajaxEliminarUsuario();
+
+}

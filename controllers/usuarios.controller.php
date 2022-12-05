@@ -460,4 +460,26 @@
             }
         }
 
+
+        //Eliminar Usuario
+        static public function ctrBorrarUsuario($idusuario)
+        {
+
+            $infoUsuario = ModeloUsuarios::mdlMostrarUsuario("tbl_usuario", "usuarioid", $idusuario);
+
+            // return $infoUsuario;
+
+            $borrarUsuario = ModeloUsuarios::mdlBorrarUsuario("tbl_usuario", "usuarioid", $idusuario);
+
+            if($borrarUsuario == "ok")
+            {
+                unlink('../' . $infoUsuario["foto"]);
+                rmdir('../views/img/users/' . $infoUsuario["usuario"]);
+            }
+
+            return $borrarUsuario;
+
+        }
+
+        
     }
