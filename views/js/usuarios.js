@@ -217,12 +217,12 @@ $(document).on("click", ".btnEliminarUsuario", function(){
 
     //catching the variables that comes from usuarios.php classes attributes
     var idUsuario = $(this).attr("idUsuario");
-    var fotoUsuario = $(this).attr("fotoUsuario");
-    var usuario = $(this).attr("usuario");
+    // var fotoUsuario = $(this).attr("fotoUsuario");
+    // var usuario = $(this).attr("usuario");
 
-    console.log('idUsuario', idUsuario);
-    console.log('fotoUsuario', fotoUsuario);
-    console.log('usuario', usuario);
+    // console.log('idUsuario', idUsuario);
+    // console.log('fotoUsuario', fotoUsuario);
+    // console.log('usuario', usuario);
     
     //showing an alert that if you continue the user will be deleted
     Swal.fire({
